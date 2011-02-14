@@ -1,5 +1,5 @@
 ###
-jTable jQuery Plugin v0.1.0
+jTable jQuery Plugin v0.1.1
 (c) 2011 Taylor Yelverton - http://www.jtable.net
 License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
