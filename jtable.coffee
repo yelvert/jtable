@@ -1,9 +1,9 @@
 ###
-jTable jQuery Plugin v0.1
+jTable jQuery Plugin v0.1.0
 (c) 2011 Taylor Yelverton - http://www.jtable.net
-License: Ms-Pl (http://www.opensource.org/licenses/ms-pl.html)
+License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
-Compiled with CoffeeScript version 0.9.6 
+Compiled with CoffeeScript version 1.0.0
 coffee -b -c jtable.coffee
 
 ###
