@@ -1,9 +1,9 @@
 /*
 jTable jQuery Plugin v0.1.1
 (c) 2011 Taylor Yelverton - http://www.jtable.net
-License: Ms-Pl (http://www.opensource.org/licenses/ms-pl.html)
+License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
-Compiled with CoffeeScript version 0.9.6
+Compiled with CoffeeScript version 1.0.0
 coffee -b -c jtable.coffee
 
 */var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -22,12 +22,12 @@ coffee -b -c jtable.coffee
         width: '',
         indexUrl: '',
         viewLink: true,
-        viewUrl: '?id=:id',
+        viewUrl: '?id=:id:',
         inlineView: true,
         editLink: true,
-        editUrl: 'edit?id=:id',
+        editUrl: 'edit?id=:id:',
         destroyLink: true,
-        destroyUrl: '?id=:id',
+        destroyUrl: '?id=:id:',
         onDestroy: function() {},
         otherActions: [],
         language: {
@@ -143,10 +143,11 @@ coffee -b -c jtable.coffee
         }
       }, this);
       buildTableHead = __bind(function() {
-        var column, table_head, th, _fn, _i, _len, _ref;
+        var column, table_head, th, _i, _len, _ref;
         table_head = $('thead', this.table);
         _ref = this.settings.columns;
-        _fn = function(column) {
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          column = _ref[_i];
           th = $('<th class="jTable-column-heading"></th>');
           th.attr('data-jTable-column-attribute', column.attribute);
           if (column.heading === void 0) {
@@ -181,22 +182,19 @@ coffee -b -c jtable.coffee
               return fetchItems();
             }, this));
           }
-          return table_head.append($(th));
-        };
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          column = _ref[_i];
-          _fn.call(this, column);
+          table_head.append($(th));
         }
         if (this.show_links) {
           return table_head.append($('<th class="jTable-column-heading">&nbsp</th>'));
         }
       }, this);
       buildTableFoot = __bind(function() {
-        var column, search_field, table_foot, th, _fn, _i, _len, _ref;
+        var column, search_field, table_foot, th, _i, _len, _ref;
         if (this.settings.singleColumnSearch) {
           table_foot = $('tfoot', this.table);
           _ref = this.settings.columns;
-          _fn = function(column) {
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            column = _ref[_i];
             if (column.searchable) {
               th = $('<th class="jTable-column-footer"></th>');
               search_field = $("<input type='text' jTable-column-attribute='" + column.attribute + "'>");
@@ -218,11 +216,7 @@ coffee -b -c jtable.coffee
             } else {
               th = $('<th class="jTable-column-footer">&nbsp;</th>');
             }
-            return table_foot.append(th);
-          };
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            column = _ref[_i];
-            _fn.call(this, column);
+            table_foot.append(th);
           }
           if (this.show_links) {
             return table_foot.append($('<th class="jTable-column-footer">&nbsp;</th>'));
@@ -230,7 +224,7 @@ coffee -b -c jtable.coffee
         }
       }, this);
       updateTableRows = __bind(function() {
-        var action, action_link, actions_cell, blank_row, column, column_count, destroy_link, edit_link, i, item, name, new_cell, new_row, table_body, value, view_link, _fn, _i, _j, _len, _len2, _len3, _ref, _ref2, _ref3, _results;
+        var action, action_link, actions_cell, blank_row, column, column_count, destroy_link, edit_link, i, item, name, new_cell, new_row, table_body, value, view_link, _i, _j, _len, _len2, _len3, _ref, _ref2, _ref3, _results;
         table_body = $('tbody', this.table);
         table_body.html('');
         if (this.items_count === 0) {
@@ -242,7 +236,9 @@ coffee -b -c jtable.coffee
           return table_body.append(blank_row);
         } else {
           _ref = this.items;
-          _fn = function(item, i) {
+          _results = [];
+          for (i = 0, _len = _ref.length; i < _len; i++) {
+            item = _ref[i];
             new_row = $("<tr data-jTable-row-index='" + i + "'></tr>");
             if (i % 2 === 0) {
               new_row.addClass("jTable-row-even");
@@ -338,12 +334,7 @@ coffee -b -c jtable.coffee
               }
               new_row.append(actions_cell);
             }
-            return _results.push(table_body.append(new_row));
-          };
-          _results = [];
-          for (i = 0, _len = _ref.length; i < _len; i++) {
-            item = _ref[i];
-            _fn.call(this, item, i);
+            _results.push(table_body.append(new_row));
           }
           return _results;
         }

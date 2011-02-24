@@ -1,9 +1,9 @@
 ###
 jTable jQuery Plugin v0.1.1
 (c) 2011 Taylor Yelverton - http://www.jtable.net
-License: Ms-Pl (http://www.opensource.org/licenses/ms-pl.html)
+License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
-Compiled with CoffeeScript version 0.9.6 
+Compiled with CoffeeScript version 1.0.0
 coffee -b -c jtable.coffee
 
 ###
@@ -24,12 +24,12 @@ coffee -b -c jtable.coffee
         width: ''
         indexUrl: ''
         viewLink: true
-        viewUrl: '?id=:id'
+        viewUrl: '?id=:id:'
         inlineView: true
         editLink: true
-        editUrl: 'edit?id=:id'
+        editUrl: 'edit?id=:id:'
         destroyLink: true
-        destroyUrl: '?id=:id'
+        destroyUrl: '?id=:id:'
         onDestroy: ->
           
         otherActions: []
