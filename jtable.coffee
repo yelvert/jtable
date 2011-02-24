@@ -1,5 +1,5 @@
 ###
-jTable jQuery Plugin v0.1
+jTable jQuery Plugin v0.1.1
 (c) 2011 Taylor Yelverton - http://www.jtable.net
 License: Ms-Pl (http://www.opensource.org/licenses/ms-pl.html)
 
@@ -20,7 +20,6 @@ coffee -b -c jtable.coffee
         perPageOptions: [25,50,100]
         fullPagination: true
         ajaxInterval: 250
-        noItemsMsg: "No Records were found."
         rowClass: ''
         width: ''
         indexUrl: ''
@@ -33,8 +32,13 @@ coffee -b -c jtable.coffee
         destroyUrl: '?id=:id'
         onDestroy: ->
           
-        destroyConfirmMsg: "Are you sure?"
         otherActions: []
+        language:
+          viewLinkText: "View"
+          editLinkText: "Edit"
+          destroyLinkText: "Destroy"
+          noItemsMsg: "No Records were found."
+          destroyConfirmMsg: "Are you sure?"
       column:
         searchable: true
         sortable: true
@@ -183,7 +187,7 @@ coffee -b -c jtable.coffee
           column_count = @settings.columns.length
           if @show_links
             column_count += 1
-          blank_row = $("<tr><td colspan='#{column_count}' class='jTable-cell jTable-no-items-row'>#{@settings.noItemsMsg}</td></tr>")
+          blank_row = $("<tr><td colspan='#{column_count}' class='jTable-cell jTable-no-items-row'>#{@settings.language.noItemsMsg}</td></tr>")
           table_body.append(blank_row)
         else
           for item, i in @items
@@ -216,7 +220,7 @@ coffee -b -c jtable.coffee
                 actions_cell.append(action_link)
               if @settings.viewLink
                 if @settings.inlineView
-                  view_link = $("<a href='#'>View</a>")
+                  view_link = $("<a href='#'>#{@settings.language.viewLinkText}</a>")
                   view_link.attr('data-jTable-view-url', insertItemAttributesIntoString(item, @settings.viewUrl))
                   view_link.click (event) =>
                     $("tr.jTable-info-row[data-jTable-item-identifier=#{$(event.target).closest('tr').attr('data-jTable-item-identifier')}]").remove()
@@ -229,18 +233,18 @@ coffee -b -c jtable.coffee
                         @element.trigger('ajax:error', [xhr, status, error]);
                     })
                 else
-                  view_link = $("<a>View</a>")
+                  view_link = $("<a>#{@settings.language.viewLinkText}</a>")
                   view_link.attr('href', insertItemAttributesIntoString(item, @settings.viewUrl))
                 actions_cell.append(view_link)
               if @settings.editLink
-                edit_link = $("<a>Edit</a>")
+                edit_link = $("<a>#{@settings.language.editLinkText}</a>")
                 edit_link.attr('href', insertItemAttributesIntoString(item, @settings.editUrl))
                 actions_cell.append(edit_link)
               if @settings.destroyLink
-                destroy_link = $("<a href='#'>Destroy</a>")
+                destroy_link = $("<a href='#'>#{@settings.language.destroyLinkText}</a>")
                 destroy_link.attr('data-jTable-destroy-url', insertItemAttributesIntoString(item, @settings.destroyUrl))
                 destroy_link.click (event) =>
-                  if (confirm(@settings.destroyConfirmMsg))
+                  if (confirm(@settings.language.destroyConfirmMsg))
                     $.ajax({
                       url: $(event.currentTarget).attr('data-jTable-destroy-url')
                       type: 'POST'

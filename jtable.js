@@ -1,5 +1,5 @@
 /*
-jTable jQuery Plugin v0.1
+jTable jQuery Plugin v0.1.1
 (c) 2011 Taylor Yelverton - http://www.jtable.net
 License: Ms-Pl (http://www.opensource.org/licenses/ms-pl.html)
 
@@ -18,7 +18,6 @@ coffee -b -c jtable.coffee
         perPageOptions: [25, 50, 100],
         fullPagination: true,
         ajaxInterval: 250,
-        noItemsMsg: "No Records were found.",
         rowClass: '',
         width: '',
         indexUrl: '',
@@ -30,8 +29,14 @@ coffee -b -c jtable.coffee
         destroyLink: true,
         destroyUrl: '?id=:id',
         onDestroy: function() {},
-        destroyConfirmMsg: "Are you sure?",
-        otherActions: []
+        otherActions: [],
+        language: {
+          viewLinkText: "View",
+          editLinkText: "Edit",
+          destroyLinkText: "Destroy",
+          noItemsMsg: "No Records were found.",
+          destroyConfirmMsg: "Are you sure?"
+        }
       },
       column: {
         searchable: true,
@@ -233,7 +238,7 @@ coffee -b -c jtable.coffee
           if (this.show_links) {
             column_count += 1;
           }
-          blank_row = $("<tr><td colspan='" + column_count + "' class='jTable-cell jTable-no-items-row'>" + this.settings.noItemsMsg + "</td></tr>");
+          blank_row = $("<tr><td colspan='" + column_count + "' class='jTable-cell jTable-no-items-row'>" + this.settings.language.noItemsMsg + "</td></tr>");
           return table_body.append(blank_row);
         } else {
           _ref = this.items;
@@ -282,7 +287,7 @@ coffee -b -c jtable.coffee
               }
               if (this.settings.viewLink) {
                 if (this.settings.inlineView) {
-                  view_link = $("<a href='#'>View</a>");
+                  view_link = $("<a href='#'>" + this.settings.language.viewLinkText + "</a>");
                   view_link.attr('data-jTable-view-url', insertItemAttributesIntoString(item, this.settings.viewUrl));
                   view_link.click(__bind(function(event) {
                     $("tr.jTable-info-row[data-jTable-item-identifier=" + ($(event.target).closest('tr').attr('data-jTable-item-identifier')) + "]").remove();
@@ -298,21 +303,21 @@ coffee -b -c jtable.coffee
                     });
                   }, this));
                 } else {
-                  view_link = $("<a>View</a>");
+                  view_link = $("<a>" + this.settings.language.viewLinkText + "</a>");
                   view_link.attr('href', insertItemAttributesIntoString(item, this.settings.viewUrl));
                 }
                 actions_cell.append(view_link);
               }
               if (this.settings.editLink) {
-                edit_link = $("<a>Edit</a>");
+                edit_link = $("<a>" + this.settings.language.editLinkText + "</a>");
                 edit_link.attr('href', insertItemAttributesIntoString(item, this.settings.editUrl));
                 actions_cell.append(edit_link);
               }
               if (this.settings.destroyLink) {
-                destroy_link = $("<a href='#'>Destroy</a>");
+                destroy_link = $("<a href='#'>" + this.settings.language.destroyLinkText + "</a>");
                 destroy_link.attr('data-jTable-destroy-url', insertItemAttributesIntoString(item, this.settings.destroyUrl));
                 destroy_link.click(__bind(function(event) {
-                  if (confirm(this.settings.destroyConfirmMsg)) {
+                  if (confirm(this.settings.language.destroyConfirmMsg)) {
                     $.ajax({
                       url: $(event.currentTarget).attr('data-jTable-destroy-url'),
                       type: 'POST',
