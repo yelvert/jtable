@@ -1,0 +1,57 @@
+<html>
+  <head>
+    
+    <!-- Jasmine Files -->
+    <link rel="stylesheet" href="jasmine/jasmine.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <script src="jasmine/jasmine.js" type="text/javascript" charset="utf-8"></script>
+    <script src="jasmine/jasmine-html.js" type="text/javascript" charset="utf-8"></script>
+    
+    <!-- Spec Files -->
+    <script src="spec/test_spec.js" type="text/javascript" charset="utf-8"></script>
+    
+    <!-- Source Files -->
+    <script src="../lib/dependencies/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../jtable.js" type="text/javascript" charset="utf-8"></script>
+    
+    <!-- Jasmine Runner -->
+    <script type="text/javascript">
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 1000;
+        
+        var trivialReporter = new jasmine.TrivialReporter();
+        
+        jasmineEnv.addReporter(trivialReporter);
+        
+        jasmineEnv.specFilter = function(spec) {
+          return trivialReporter.specFilter(spec);
+        };
+        
+        var currentWindowOnload = window.onload;
+        
+        window.onload = function() {
+          if (currentWindowOnload) {
+            currentWindowOnload();
+          }
+          execJasmine();
+        };
+        
+        function execJasmine() {
+          jasmineEnv.execute();
+        }
+        
+      })();
+    </script>
+    <style type="text/css" media="screen">
+      #header {
+        font-weight: bold;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      Test suite for uncompressed jtable
+    </div>
+  </body>
+</html>

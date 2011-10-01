@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>jtable Test Suite</title>
+    <script src="../lib/version.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+      #page-header {
+        height: 10%;
+        text-align: center;
+      }
+      
+      #test-suites {
+        height: 90%;
+      }
+      
+      .suite-container {
+        width: 47%;
+        padding: 1%;
+        display: inline-block;
+        vertical-align: top;
+      }
+      
+      .seperator {
+        display: inline-block;
+        vertical-align: top;
+        width: 1%;
+        height: 100%;
+        background-color: black;
+      }
+      
+      .header {
+        font-size: 2em;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      .frame-container {
+        
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="page-header">
+      Test for <em>jtable</em> version <em><span id="version"></span></em>
+    </h1>
+    <div id="test-suites">
+      <span id="left" class="suite-container">
+        <iframe src="test_uncompressed.html" width="100%" name="uncompressed_test" frameborder="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="yes" noresize></iframe>
+      </span>
+      <span class="seperator"></span>
+      <span id="right" class="suite-container">
+        <iframe src="test_uncompressed.html" width="100%" name="uncompressed_test" frameborder="0" vspace="0" hspace="0" marginwidth="0" marginheight="0" scrolling="yes" noresize></iframe>
+      </span>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+      document.getElementById('version').innerText = JTABLE.version.toString()
+    </script>
+  </body>
+</html>

@@ -1,8 +1,7 @@
 <html>
   <head>
     <script src="lib/dependencies/jquery.js" type="text/javascript" charset="utf-8"></script>
-    <script src="jtable.js" type="text/javascript" charset="utf-8"></script>
-    <script src="jtable.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="lib/version.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function() {
         $('#version').text(JTABLE.version.toString())
@@ -14,8 +13,8 @@
       jTable Test Loading page
     </h1>
     <h3>jTable build version: <span id="version"></span></h3>
-    <div>
-      If there are any javascript errors on this page, then the build has either failed or has produced bad compiled code.
-    </div>
+    <p>
+      <a href="test/test.html">Click Here</a> to run the test suite and verify build.
+    </p>
   </body>
 </html>
