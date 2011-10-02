@@ -8,7 +8,7 @@
     <script src="sinon.js" type="text/javascript" charset="utf-8"></script>
     
     <!-- Spec Files -->
-    <script src="spec/test_spec.js" type="text/javascript" charset="utf-8"></script>
+    <script src="spec/loading.js" type="text/javascript" charset="utf-8"></script>
     
     <!-- Source Files -->
     <script src="../lib/dependencies/jquery.js" type="text/javascript" charset="utf-8"></script>
@@ -42,6 +42,10 @@
         }
         
       })();
+      
+      $(document).ready(function() {
+        $('#version').text(JTABLE.version.toString());
+      });
     </script>
     <style type="text/css" media="screen">
       #header {
@@ -52,7 +56,9 @@
   </head>
   <body>
     <div id="header">
-      Test suite for compressed jtable
+      Test suite for jtable version <span id="version"></span>
+      <br />
+      COMPRESSED
     </div>
   </body>
 </html>

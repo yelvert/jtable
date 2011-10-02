@@ -42,6 +42,10 @@
         }
         
       })();
+      
+      $(document).ready(function() {
+        $('#version').text(JTABLE.version.toString());
+      });
     </script>
     <style type="text/css" media="screen">
       #header {
@@ -52,7 +56,9 @@
   </head>
   <body>
     <div id="header">
-      Test suite for uncompressed jtable
+      Test suite for jtable version <span id="version"></span>
+      <br />
+      UNCOMPRESSED
     </div>
   </body>
 </html>
