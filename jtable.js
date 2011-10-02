@@ -1453,9 +1453,23 @@ JTABLE.version = {major:0, minor:2, patch:"development"};
 JTABLE.version.toString = function() {
   return[JTABLE.version.major, JTABLE.version.minor, JTABLE.version.patch].join(".")
 };
-JTABLE.Backbone.Views.jtable = Backbone.View.extend({className:"jtable-container", initialize:function() {
+JTABLE.Backbone.Templates.jtable = _.template("   <div class='jtable-header'></div>   <div class='jtable-footer'></div> ");
+JTABLE.Backbone.Views.jtable = Backbone.View.extend({template:JTABLE.Backbone.Templates.jtable, initialize:function() {
   _.bindAll(this);
   $(this.el).data("jtable", this);
-  this.header_view = new JTABLE.Backbone.Views.header
+  $(this.el).addClass("jtable-container");
+  $(this.el).html(this.template({view:this}));
+  this.header_view = new JTABLE.Backbone.Views.header({mainView:this});
+  this.footer_view = new JTABLE.Backbone.Views.footer({mainView:this})
+}});
+JTABLE.Backbone.Views.header = Backbone.View.extend({initialize:function() {
+  _.bindAll(this);
+  this.mainView = this.options.mainView;
+  this.el = this.mainView.$(".jtable-header")
+}});
+JTABLE.Backbone.Views.footer = Backbone.View.extend({initialize:function() {
+  _.bindAll(this);
+  this.mainView = this.options.mainView;
+  this.el = this.mainView.$(".jtable-footer")
 }});
 
