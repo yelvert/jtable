@@ -1443,16 +1443,12 @@
     return string.replace(/&(?!\w+;|#\d+;|#x[\da-f]+;)/gi, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#x27;").replace(/\//g, "&#x2F;")
   }
 }).call(this);
-var JTABLE = {};
+var JTABLE = {Backbone:{Models:{}, Collections:{}, Views:{}, Templates:{}}};
 (function($) {
   $.fn.jtable = function(options) {
-    if(console && console.log) {
-      console.log(this);
-      console.log(options);
-      console.log(JTABLE)
-    }
   }
 })(jQuery);
+var JTABLE = JTABLE || {};
 JTABLE.version = {major:0, minor:2, patch:"development"};
 JTABLE.version.toString = function() {
   return[JTABLE.version.major, JTABLE.version.minor, JTABLE.version.patch].join(".")
