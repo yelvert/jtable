@@ -1,8 +1,4 @@
 describe("jtable", function() {
-  it("should be a jquery function", function() {
-    expect($.fn.jtable).toBeDefined()
-  })
-  
   it("should have a global variable that contains the version and all backbone pieces", function() {
     expect(JTABLE).toBeDefined()
     expect(JTABLE.version).toBeDefined()

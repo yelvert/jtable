@@ -2,3 +2,4 @@
 --js ./lib/dependencies/backbone.js
 --js ./lib/core.js
 --js ./lib/version.js
+--js ./lib/views/jtable.js

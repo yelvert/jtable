@@ -1,2 +1,4 @@
+#!/usr/bin/env bash
+
 java -jar ./compiler/compiler.jar --flagfile ./compiler_flags --js_output_file ./jtable.js --formatting PRETTY_PRINT --compilation_level WHITESPACE_ONLY
 java -jar ./compiler/compiler.jar --flagfile ./compiler_flags --js_output_file ./jtable.min.js --formatting PRINT_INPUT_DELIMITER --compilation_level SIMPLE_OPTIMIZATIONS

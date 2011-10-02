@@ -1453,4 +1453,9 @@ JTABLE.version = {major:0, minor:2, patch:"development"};
 JTABLE.version.toString = function() {
   return[JTABLE.version.major, JTABLE.version.minor, JTABLE.version.patch].join(".")
 };
+JTABLE.Backbone.Views.jtable = Backbone.View.extend({className:"jtable-container", initialize:function() {
+  _.bindAll(this);
+  $(this.el).data("jtable", this);
+  this.header_view = new JTABLE.Backbone.Views.header
+}});
 
