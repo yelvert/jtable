@@ -3,6 +3,10 @@
 --js ./lib/core.js
 --js ./lib/version.js
 --js ./lib/templates/jtable.js
+--js ./lib/templates/header.js
+--js ./lib/templates/table.js
+--js ./lib/templates/footer.js
 --js ./lib/views/jtable.js
 --js ./lib/views/header.js
+--js ./lib/views/table.js
 --js ./lib/views/footer.js

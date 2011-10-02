@@ -1446,6 +1446,9 @@
 var JTABLE = {Backbone:{Models:{}, Collections:{}, Views:{}, Templates:{}}};
 (function($) {
   $.fn.jtable = function(options) {
+    var options = options || {};
+    var jtable = new JTABLE.Backbone.Views.jtable({el:this, jtableOptions:options});
+    jtable.render()
   }
 })(jQuery);
 var JTABLE = JTABLE || {};
@@ -1453,23 +1456,48 @@ JTABLE.version = {major:0, minor:2, patch:"development"};
 JTABLE.version.toString = function() {
   return[JTABLE.version.major, JTABLE.version.minor, JTABLE.version.patch].join(".")
 };
-JTABLE.Backbone.Templates.jtable = _.template("   <div class='jtable-header'></div>   <div class='jtable-footer'></div> ");
+JTABLE.Backbone.Templates.jtable = _.template("   <div class='jtable-header'></div>   <div class='jtable-table'></div>   <div class='jtable-footer'></div> ");
+JTABLE.Backbone.Templates.header = _.template("   Header ");
+JTABLE.Backbone.Templates.table = _.template("   Table ");
+JTABLE.Backbone.Templates.footer = _.template("   Footer ");
 JTABLE.Backbone.Views.jtable = Backbone.View.extend({template:JTABLE.Backbone.Templates.jtable, initialize:function() {
-  _.bindAll(this);
+  _.bindAll(this, "render");
+  this.el = this.options.el;
+  this.jtableOptions = this.options.jtableOptions;
   $(this.el).data("jtable", this);
-  $(this.el).addClass("jtable-container");
+  $(this.el).addClass("jtable-container")
+}, render:function() {
   $(this.el).html(this.template({view:this}));
   this.header_view = new JTABLE.Backbone.Views.header({mainView:this});
-  this.footer_view = new JTABLE.Backbone.Views.footer({mainView:this})
+  this.header_view.render();
+  this.table_view = new JTABLE.Backbone.Views.table({mainView:this});
+  this.table_view.render();
+  this.footer_view = new JTABLE.Backbone.Views.footer({mainView:this});
+  this.footer_view.render();
+  return this
 }});
-JTABLE.Backbone.Views.header = Backbone.View.extend({initialize:function() {
+JTABLE.Backbone.Views.header = Backbone.View.extend({template:JTABLE.Backbone.Templates.header, initialize:function() {
   _.bindAll(this);
   this.mainView = this.options.mainView;
   this.el = this.mainView.$(".jtable-header")
+}, render:function() {
+  $(this.el).html(this.template({view:this}));
+  return this
 }});
-JTABLE.Backbone.Views.footer = Backbone.View.extend({initialize:function() {
-  _.bindAll(this);
+JTABLE.Backbone.Views.table = Backbone.View.extend({template:JTABLE.Backbone.Templates.table, initialize:function() {
+  _.bindAll(this, "render");
+  this.mainView = this.options.mainView;
+  this.el = this.mainView.$(".jtable-table")
+}, render:function() {
+  $(this.el).html(this.template({view:this}));
+  return this
+}});
+JTABLE.Backbone.Views.footer = Backbone.View.extend({template:JTABLE.Backbone.Templates.footer, initialize:function() {
+  _.bindAll(this, "render");
   this.mainView = this.options.mainView;
   this.el = this.mainView.$(".jtable-footer")
+}, render:function() {
+  $(this.el).html(this.template({view:this}));
+  return this
 }});
 
