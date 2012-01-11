@@ -1,5 +1,6 @@
 --js ./lib/dependencies/underscore.js
 --js ./lib/dependencies/backbone.js
+--js ./lib/namespace.js
 --js ./lib/templates/templates.js
 --js ./lib/core.js
 --js ./lib/version.js

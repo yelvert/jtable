@@ -1443,8 +1443,9 @@
     return string.replace(/&(?!\w+;|#\d+;|#x[\da-f]+;)/gi, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#x27;").replace(/\//g, "&#x2F;")
   }
 }).call(this);
+window.JTABLE = window.JTABLE || {Backbone:{Models:{}, Collections:{}, Views:{}, Templates:{}}, DefaultSettings:{Templates:{}}};
 (function() {
-  window.JTABLE_TEMPLATES = window.JTABLE_TEMPLATES || {};
+  window.JTABLE.Backbone.Templates = window.JTABLE.Backbone.Templates || {};
   var template = function(str) {
     var fn = new Function("obj", "var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('" + str.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g, function(match, code) {
       return"'," + code.replace(/\\'/g, "'") + ",'"
@@ -1453,16 +1454,17 @@
     }).replace(/\r/g, "\\r").replace(/\n/g, "\\n").replace(/\t/g, "\\t") + "');}return __p.join('');");
     return fn
   };
-  window.JTABLE_TEMPLATES["footer"] = template("Footer");
-  window.JTABLE_TEMPLATES["header"] = template("Header");
-  window.JTABLE_TEMPLATES["jtable"] = template("<div class='jtable-header'></div><div class='jtable-table'></div><div class='jtable-footer'></div>");
-  window.JTABLE_TEMPLATES["table"] = template("Table")
+  window.JTABLE.Backbone.Templates["footer"] = template("Footer");
+  window.JTABLE.Backbone.Templates["header"] = template("Header");
+  window.JTABLE.Backbone.Templates["jtable"] = template("<div class='jtable-header'></div><div class='jtable-table'></div><div class='jtable-footer'></div>");
+  window.JTABLE.Backbone.Templates["table"] = template("Table")
 })();
-var JTABLE = {Backbone:{Models:{}, Collections:{}, Views:{}, Templates:JTABLE_TEMPLATES}};
 (function($) {
-  $.fn.jtable = function(options) {
-    var options = options || {};
-    var jtable = new JTABLE.Backbone.Views.jtable({el:this, jtableOptions:options});
+  $.fn.jtable = function(settings) {
+    var settings = $.extend(true, settings || {}, JTABLE.DefaultSettings);
+    var inst = {settings:settings};
+    $(this).data("jtable", inst);
+    var jtable = new JTABLE.Backbone.Views.jtable({el:$(this)});
     jtable.render()
   }
 })(jQuery);
@@ -1474,8 +1476,7 @@ JTABLE.version.toString = function() {
 JTABLE.Backbone.Views.jtable = Backbone.View.extend({template:JTABLE.Backbone.Templates.jtable, initialize:function() {
   _.bindAll(this, "render");
   this.el = this.options.el;
-  this.jtableOptions = this.options.jtableOptions;
-  $(this.el).data("jtable", this);
+  $(this.el).data("jtable").instance = this;
   $(this.el).addClass("jtable-container")
 }, render:function() {
   $(this.el).html(this.template({view:this}));

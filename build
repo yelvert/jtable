@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Compile Templates
-template_namespace="window.JTABLE_TEMPLATES"
+template_namespace="window.JTABLE.Backbone.Templates"
 start=`cat ./compiler/templates_start.txt | awk '{gsub("TEMPLATE_NAMESPACE", "'"$template_namespace"'")};1'`
 end=`cat ./compiler/templates_end.txt`
 templates=""
