@@ -1,4 +1,23 @@
 #!/usr/bin/env bash
 
-java -jar ./compiler/compiler.jar --flagfile ./compiler_flags --js_output_file ./jtable.js --formatting PRETTY_PRINT --compilation_level WHITESPACE_ONLY
-java -jar ./compiler/compiler.jar --flagfile ./compiler_flags --js_output_file ./jtable.min.js --formatting PRINT_INPUT_DELIMITER --compilation_level SIMPLE_OPTIMIZATIONS
+# Compile Templates
+template_namespace="window.JTABLE_TEMPLATES"
+start=`cat ./compiler/templates_start.txt | awk '{gsub("TEMPLATE_NAMESPACE", "'"$template_namespace"'")};1'`
+end=`cat ./compiler/templates_end.txt`
+templates=""
+template_dir="./lib/templates/"
+for file in `find $template_dir*.jst`
+do
+  template_contents=`cat $file | awk '{ printf "%s", $0 }'`
+  template_name=`echo "$file" | awk '{gsub("./lib/templates/", "")};{gsub(".jst", "")};1'`
+  template="$template_namespace['$template_name'] = template(\"$template_contents\");"
+  templates=`echo "$templates$template"`
+done
+templates=`echo "$start$templates$end"`
+echo "$templates" > ./lib/templates/templates.js
+
+# Compile JS
+java -jar ./compiler/compiler.jar --flagfile ./compiler/compiler_flags --js_output_file ./jtable.js --formatting PRETTY_PRINT --compilation_level WHITESPACE_ONLY
+
+# Compile minified JS
+java -jar ./compiler/compiler.jar --flagfile ./compiler/compiler_flags --js_output_file ./jtable.min.js --formatting PRINT_INPUT_DELIMITER --compilation_level SIMPLE_OPTIMIZATIONS
