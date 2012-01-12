@@ -1,7 +1,6 @@
 <html>
   <head>
     <title>jtable Example</title>
-    
     <script src="../lib/dependencies/jquery.js" type="text/javascript" charset="utf-8"></script>
     <script src="../jtable.js" type="text/javascript" charset="utf-8"></script>
   </head>
@@ -11,7 +10,9 @@
     </p>
     <div id="countries"></div>
     <script type="text/javascript" charset="utf-8">
-      $('#countries').jtable()
+      var items;
+      $.ajax({url: 'countries.json', async: false, success: function(data) {items = data}});
+      $('#countries').jtable({items: items});
     </script>
   </body>
 </html>
